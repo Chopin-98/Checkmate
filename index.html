@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkmate v15.1.1</title>
+    <title>Checkmate v15.1.2</title>
     <!-- vis-network pour l'arbre d'ouvertures -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/standalone/umd/vis-network.min.js"></script>
     <!-- chess.js pour la logique complète des échecs -->
@@ -354,36 +354,36 @@
 </head>
 <body>
 
-    <!-- Hub d'accueil principal (v15.1.1) -->
+    <!-- Hub d'accueil principal (v15.1.2) -->
     <div id="hubPage">
         <div class="hub-card">
-            <h1>Checkmate v15.1.1</h1>
+            <h1>Checkmate v15.1.2</h1>
             <p>De la première case au mat final</p>
 
             <div class="hub-menu-grid">
                 <button class="hub-btn" onclick="openProfileModal()" style="border-color: #8b5cf6; background: rgba(139, 92, 246, 0.05);">
-                    <span>👤 Mon Profil & Membres en Ligne</span>
-                    <span>🌐</span>
+                    <span>Mon Profil & Membres</span>
+                    <span>→</span>
                 </button>
                 <button class="hub-btn" onclick="openOnlineModal()" style="border-color: #2563eb; background: rgba(37, 99, 235, 0.05);">
-                    <span>⚔️ Multijoueur en Ligne (1v1 Temps Réel)</span>
-                    <span>🌐</span>
+                    <span>Multijoueur en Ligne (1v1 Temps Réel)</span>
+                    <span>→</span>
                 </button>
                 <button class="hub-btn" onclick="openHubSection('bots')">
-                    <span>🤖 Jouer contre les Bots</span>
+                    <span>Jouer contre les Bots</span>
                     <span>→</span>
                 </button>
                 <button class="hub-btn" onclick="openHubSection('variants')">
-                    <span>🎲 Variantes (Chess 960 & Dame Cachée)</span>
+                    <span>Variantes (Chess 960 & Dame Cachée)</span>
                     <span>→</span>
                 </button>
-                <button class="hub-btn" onclick="openInfoModalBeforeOpenings()">
-                    <span>📖 Étude & Répertoire d'ouvertures</span>
+                <button class="hub-btn" onclick="openHubSection('openings')">
+                    <span>Étude & Répertoire d'ouvertures</span>
                     <span>→</span>
                 </button>
                 <button class="hub-btn" onclick="openThemeModal()">
-                    <span>⚙️ Paramètres de l'Interface</span>
-                    <span>🔧</span>
+                    <span>Paramètres de l'Interface</span>
+                    <span>→</span>
                 </button>
             </div>
 
@@ -394,11 +394,11 @@
         </div>
     </div>
 
-    <!-- Modale Profil & Membres en Ligne (v15.1.1 avec import local) -->
+    <!-- Modale Profil & Membres (v15.1.2) -->
     <div id="profileModal">
         <div class="help-card">
-            <h3>👤 Mon Profil & Communauté</h3>
-            <p>Configurez votre pseudo, importez votre avatar depuis votre ordinateur et consultez la liste des autres joueurs en ligne :</p>
+            <h3>Mon Profil & Membres</h3>
+            <p>Configurez votre pseudo, importez votre avatar depuis votre ordinateur et consultez la liste des membres :</p>
 
             <div class="setting-group" style="margin-top: 15px;">
                 <span class="setting-label">Votre Pseudo</span>
@@ -417,7 +417,7 @@
             <button class="btn-primary" onclick="saveUserProfile()" style="width: 100%; padding: 10px; margin-bottom: 15px;">Enregistrer mon profil</button>
 
             <div class="setting-group" style="border-top: 1px solid var(--border-color); padding-top: 15px;">
-                <span class="setting-label">Membres en ligne connectés sur le site :</span>
+                <span class="setting-label">Membres :</span>
                 <div id="membersListContainer" style="background: var(--graph-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; max-height: 120px; overflow-y: auto; font-size: 13px; display: flex; flex-direction: column; gap: 6px;">
                     <span style="color: var(--text-muted); font-style: italic;">Connexion à la base de données...</span>
                 </div>
@@ -430,7 +430,7 @@
     <!-- Modale Multijoueur en Ligne -->
     <div id="onlineSelectModal">
         <div class="help-card">
-            <h3>🌐 Multijoueur en Ligne</h3>
+            <h3>Multijoueur en Ligne</h3>
             <p>Affrontez vos amis ou rejoignez une partie en direct via PeerJS :</p>
 
             <div class="bot-options">
@@ -461,7 +461,7 @@
                 <li><strong>1. Créer votre répertoire :</strong> Sur <a href="https://chessgraph.net" target="_blank" rel="noopener noreferrer">Chess Graph</a>, créez votre répertoire d'ouvertures.</li>
                 <li><strong>2. Exporter :</strong> Téléchargez votre répertoire.</li>
                 <li><strong>3. Importer :</strong> Importez le fichier dans Checkmate.</li>
-                <li><strong>4. S'entraîner :</strong> Entraînez-vous à réciter votre répertoire ou relevez le 🏆 <strong>Mode Défi Chrono</strong> !</li>
+                <li><strong>4. S'entraîner :</strong> Entraînez-vous à réciter votre répertoire ou relevez le Mode Défi Chrono !</li>
             </ul>
             <button class="btn-primary" onclick="confirmOpenOpenings()" style="width: 100%; margin-top: 10px; padding: 10px;">J'ai compris, passer à l'importation</button>
             <button class="btn-secondary" onclick="closeInfoModal()" style="width: 100%; margin-top: 8px; padding: 8px;">Retour à l'accueil</button>
@@ -499,7 +499,7 @@
                 <div class="color-selection">
                     <button class="color-btn selected" id="btnColorWhite" onclick="setPlayerColorChoice('white')">Blancs</button>
                     <button class="color-btn" id="btnColorBlack" onclick="setPlayerColorChoice('black')">Noirs</button>
-                    <button class="color-btn" id="btnColorRandom" onclick="setPlayerColorChoice('random')">🎲 50/50</button>
+                    <button class="color-btn" id="btnColorRandom" onclick="setPlayerColorChoice('random')">50/50</button>
                 </div>
                 <button class="btn-primary" onclick="confirmStartBotGameFromHub()" style="width: 100%; margin-top: 12px; padding: 10px;">Lancer la partie</button>
             </div>
@@ -515,11 +515,11 @@
             <p>Découvrez des façons alternatives de jouer :</p>
             <div class="bot-options">
                 <button class="bot-btn-option" onclick="startChess960GameFromModal()" style="border-color: var(--accent-color); background: var(--btn-hover-bg);">
-                    <span>🎲 Chess 960</span>
+                    <span>Chess 960</span>
                     <span>Position de départ unique générée aléatoirement !</span>
                 </button>
                 <button class="bot-btn-option" onclick="openHiddenQueenSetup()" style="border-color: #8b5cf6; background: var(--btn-hover-bg);">
-                    <span>🕵️‍♂️ Variante Dame Cachée</span>
+                    <span>Variante Dame Cachée</span>
                     <span>Choisissez un pion qui se transformera en super-dame surprise !</span>
                 </button>
             </div>
@@ -555,8 +555,8 @@
             <div class="setting-group">
                 <span class="setting-label">Mode d'affichage global</span>
                 <div class="color-selection">
-                    <button class="color-btn selected" id="btnModeDay" onclick="setAppThemeMode('light')">☀️ Mode Jour</button>
-                    <button class="color-btn" id="btnModeNight" onclick="setAppThemeMode('dark')">🌙 Mode Nuit</button>
+                    <button class="color-btn selected" id="btnModeDay" onclick="setAppThemeMode('light')">Mode Jour</button>
+                    <button class="color-btn" id="btnModeNight" onclick="setAppThemeMode('dark')">Mode Nuit</button>
                 </div>
             </div>
 
@@ -640,27 +640,27 @@
             </div>
 
             <button id="btnRematch" class="btn-primary" onclick="restartRematch()" style="width: 100%; margin-bottom: 10px; padding: 10px;">
-                🔄 Rejouer
+                Rejouer
             </button>
 
             <button id="btnGenerateGif" class="btn-gif" onclick="generateGameGif()">
-                🎬 Générer le GIF
+                Générer le GIF
             </button>
 
             <button class="btn-secondary" onclick="closeSummaryModal()" style="width: 100%; padding: 10px;">Fermer le résumé</button>
         </div>
     </div>
 
-    <!-- Header Global (v15.1.1) -->
+    <!-- Header Global (v15.1.2) -->
     <header class="initial-hidden" id="mainHeader">
         <div class="logo-container">
             <div class="logo-circle">♔</div>
-            <div class="logo-title">Checkmate v15.1.1</div>
+            <div class="logo-title">Checkmate v15.1.2</div>
         </div>
 
         <div class="header-actions">
-            <button id="themeToggleBtn" class="btn-night-mode" onclick="toggleNightMode()" title="Basculer le Mode Nuit">🌙</button>
-            <button class="btn-secondary" onclick="returnToHub()">🏠 Accueil</button>
+            <button id="themeToggleBtn" class="btn-secondary" onclick="toggleNightMode()" title="Basculer le Mode Nuit">Mode Nuit</button>
+            <button class="btn-secondary" onclick="returnToHub()">Accueil</button>
             <button id="btnThemes" class="btn-secondary" onclick="openThemeModal()">Interface</button>
             <button id="btnNewTree" class="btn-secondary hidden" onclick="showImportScreen()">Nouvel import</button>
         </div>
@@ -701,9 +701,9 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <button id="btnRepertoireTraining" class="btn-bot-action" onclick="activateRepertoireGameMode()">🤖 S'entraîner (Bot Tactique de Ligne)</button>
-            <button id="btnChallengeMode" class="btn-challenge-action" onclick="startChallengeMode()">🏆 Mode Défi Chrono (60s)</button>
-            <button id="btnHint" class="btn-hint-action hidden" onclick="showTrainingHint()">💡 Indice</button>
+            <button id="btnRepertoireTraining" class="btn-bot-action" onclick="activateRepertoireGameMode()">S'entraîner (Bot Tactique de Ligne)</button>
+            <button id="btnChallengeMode" class="btn-challenge-action" onclick="startChallengeMode()">Mode Défi Chrono (60s)</button>
+            <button id="btnHint" class="btn-hint-action hidden" onclick="showTrainingHint()">Indice</button>
 
             <div class="board-card">
                 <div id="overlayBanner">Victoire !</div>
@@ -734,7 +734,7 @@
             <div class="moves-card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                     <div class="info-label">Feuille de partie</div>
-                    <button class="btn-secondary" style="padding: 2px 8px; font-size: 11px;" onclick="downloadPgn()">📥 Télécharger PGN</button>
+                    <button class="btn-secondary" style="padding: 2px 8px; font-size: 11px;" onclick="downloadPgn()">Télécharger PGN</button>
                 </div>
                 <div id="movesHistory" class="moves-list">Aucun coup joué</div>
             </div>
@@ -818,13 +818,13 @@
 
             if (theme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                if (btnHeader) btnHeader.textContent = '☀️';
+                if (btnHeader) btnHeader.textContent = 'Mode Jour';
                 if (btnDay) btnDay.classList.remove('selected');
                 if (btnNight) btnNight.classList.add('selected');
                 localStorage.setItem('checkmate_theme', 'dark');
             } else {
                 document.documentElement.removeAttribute('data-theme');
-                if (btnHeader) btnHeader.textContent = '🌙';
+                if (btnHeader) btnHeader.textContent = 'Mode Nuit';
                 if (btnDay) btnDay.classList.add('selected');
                 if (btnNight) btnNight.classList.remove('selected');
                 localStorage.setItem('checkmate_theme', 'light');
@@ -902,7 +902,7 @@
                         </div>
                     `;
                 });
-                container.innerHTML = html || '<span style="color: var(--text-muted);">Aucun membre en ligne</span>';
+                container.innerHTML = html || '<span style="color: var(--text-muted);">Aucun membre</span>';
             });
         }
 
@@ -1037,7 +1037,7 @@
                     if (challengeTimer <= 0) {
                         challengeTimer = 0;
                         stopClock();
-                        triggerSummaryModal(`Temps écoulé ! Votre score est de ${challengeScore} coups corrects ! 🏆`);
+                        triggerSummaryModal(`Temps écoulé ! Votre score est de ${challengeScore} coups corrects !`);
                     }
                     return;
                 }
@@ -1496,7 +1496,7 @@
                 return;
             }
 
-            let pgnString = '[Event "Checkmate v15.1.1 Partie"]\n';
+            let pgnString = '[Event "Checkmate v15.1.2 Partie"]\n';
             pgnString += '[Site "Checkmate App"]\n';
             pgnString += '[Date "' + new Date().toISOString().slice(0, 10).replace(/-/g, '.') + '"]\n';
             pgnString += '[Round "1"]\n';
@@ -1525,7 +1525,7 @@
 
         function generateGameGif() {
             const btn = document.getElementById('btnGenerateGif');
-            btn.textContent = "⏳ Génération du GIF en cours...";
+            btn.textContent = "Génération du GIF en cours...";
             btn.disabled = true;
 
             const tempCanvas = document.createElement('canvas');
@@ -1571,7 +1571,7 @@
                 gifWidth: 400,
                 gifHeight: 400
             }, function (obj) {
-                btn.textContent = "🎬 Générer le GIF";
+                btn.textContent = "Générer le GIF";
                 btn.disabled = false;
 
                 if (!obj.error) {
@@ -1816,7 +1816,7 @@
             const hintBtn = document.getElementById('btnHint');
             if (hintBtn) hintBtn.classList.remove('hidden');
 
-            document.getElementById('moveLabel').textContent = "🏆 Mode Défi Chrono Répertoire";
+            document.getElementById('moveLabel').textContent = "Mode Défi Chrono Répertoire";
             const commentEl = document.getElementById('commentLabel');
             commentEl.style.color = "#d97706";
             commentEl.textContent = "Série rapide ! Récitez votre répertoire sans commettre d'erreur. Score : 0";
