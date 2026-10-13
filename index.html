@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkmate v14.2.5</title>
+    <title>Checkmate v14.2.6</title>
     <!-- vis-network pour l'arbre d'ouvertures -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/standalone/umd/vis-network.min.js"></script>
     <!-- chess.js pour la logique complète des échecs -->
@@ -349,10 +349,10 @@
 </head>
 <body>
 
-    <!-- Hub d'accueil principal (v14.2.5) -->
+    <!-- Hub d'accueil principal (v14.2.6) -->
     <div id="hubPage">
         <div class="hub-card">
-            <h1>Checkmate v14.2.5</h1>
+            <h1>Checkmate v14.2.6</h1>
             <p>De la première case au mat final</p>
 
             <div class="hub-menu-grid">
@@ -609,11 +609,11 @@
         </div>
     </div>
 
-    <!-- Header Global (v14.2.5) -->
+    <!-- Header Global (v14.2.6) -->
     <header class="initial-hidden" id="mainHeader">
         <div class="logo-container">
             <div class="logo-circle">♔</div>
-            <div class="logo-title">Checkmate v14.2.5</div>
+            <div class="logo-title">Checkmate v14.2.6</div>
         </div>
 
         <div class="header-actions">
@@ -818,6 +818,10 @@
                 if (data.type === 'move') {
                     chessGame.move({ from: data.from, to: data.to, promotion: data.promotion || 'q' });
                     recordHistoryState(data);
+                    
+                    // CORRECTION 14.2.6 : Forcer l'affichage sur la dernière position pour voir le coup de l'adversaire
+                    currentHistoryIndex = historyFens.length - 1;
+                    
                     updateMovesHistory();
                     drawBoardFromGame();
                 }
@@ -1352,7 +1356,7 @@
                 return;
             }
 
-            let pgnString = '[Event "Checkmate v14.2.5 Partie"]\n';
+            let pgnString = '[Event "Checkmate v14.2.6 Partie"]\n';
             pgnString += '[Site "Checkmate App"]\n';
             pgnString += '[Date "' + new Date().toISOString().slice(0, 10).replace(/-/g, '.') + '"]\n';
             pgnString += '[Round "1"]\n';
@@ -2243,3 +2247,4 @@
     </script>
 </body>
 </html>
+        
