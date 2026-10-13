@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkmate v15.1.0</title>
+    <title>Checkmate v15.1.1</title>
     <!-- vis-network pour l'arbre d'ouvertures -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/standalone/umd/vis-network.min.js"></script>
     <!-- chess.js pour la logique complète des échecs -->
@@ -354,10 +354,10 @@
 </head>
 <body>
 
-    <!-- Hub d'accueil principal (v15.1.0) -->
+    <!-- Hub d'accueil principal (v15.1.1) -->
     <div id="hubPage">
         <div class="hub-card">
-            <h1>Checkmate v15.1.0</h1>
+            <h1>Checkmate v15.1.1</h1>
             <p>De la première case au mat final</p>
 
             <div class="hub-menu-grid">
@@ -394,11 +394,11 @@
         </div>
     </div>
 
-    <!-- Modale Profil & Membres en Ligne -->
+    <!-- Modale Profil & Membres en Ligne (v15.1.1 avec import local) -->
     <div id="profileModal">
         <div class="help-card">
             <h3>👤 Mon Profil & Communauté</h3>
-            <p>Configurez votre pseudo, votre image de profil et consultez la liste des autres joueurs en ligne :</p>
+            <p>Configurez votre pseudo, importez votre avatar depuis votre ordinateur et consultez la liste des autres joueurs en ligne :</p>
 
             <div class="setting-group" style="margin-top: 15px;">
                 <span class="setting-label">Votre Pseudo</span>
@@ -406,8 +406,12 @@
             </div>
 
             <div class="setting-group">
-                <span class="setting-label">URL de votre image de profil (Avatar)</span>
-                <input type="text" id="userAvatarInput" class="online-input" placeholder="https://exemple.com/image.png" style="width: 100%; text-align: left; padding: 10px; font-size: 14px; letter-spacing: normal;">
+                <span class="setting-label">Avatar (Importer une image de votre ordinateur)</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="file" id="userAvatarFile" accept="image/*" class="online-input" style="padding: 8px; font-size: 13px; letter-spacing: normal;" onchange="previewLocalImage(event)">
+                    <img id="avatarPreviewImg" src="https://via.placeholder.com/36" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color);">
+                </div>
+                <input type="hidden" id="userAvatarBase64">
             </div>
 
             <button class="btn-primary" onclick="saveUserProfile()" style="width: 100%; padding: 10px; margin-bottom: 15px;">Enregistrer mon profil</button>
@@ -647,11 +651,11 @@
         </div>
     </div>
 
-    <!-- Header Global (v15.1.0) -->
+    <!-- Header Global (v15.1.1) -->
     <header class="initial-hidden" id="mainHeader">
         <div class="logo-container">
             <div class="logo-circle">♔</div>
-            <div class="logo-title">Checkmate v15.1.0</div>
+            <div class="logo-title">Checkmate v15.1.1</div>
         </div>
 
         <div class="header-actions">
@@ -763,7 +767,6 @@
         // Connexion anonyme automatique pour identifier l'utilisateur dans Firestore
         auth.signInAnonymously().then((userCredential) => {
             currentUserId = userCredential.user.uid;
-            // Charger les infos locales ou initialiser
             syncUserProfileToFirestore();
         }).catch((error) => {
             console.error("Erreur d'authentification Firebase:", error);
@@ -839,7 +842,8 @@
             const savedPseudo = localStorage.getItem('checkmate_pseudo') || 'Joueur' + Math.floor(Math.random() * 1000);
             const savedAvatar = localStorage.getItem('checkmate_avatar') || '';
             document.getElementById('userPseudoInput').value = savedPseudo;
-            document.getElementById('userAvatarInput').value = savedAvatar;
+            document.getElementById('userAvatarBase64').value = savedAvatar;
+            document.getElementById('avatarPreviewImg').src = savedAvatar || 'https://via.placeholder.com/36';
             
             listenOnlineMembers();
             document.getElementById('profileModal').classList.add('active');
@@ -849,9 +853,21 @@
             document.getElementById('profileModal').classList.remove('active');
         }
 
+        function previewLocalImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64String = e.target.result;
+                document.getElementById('userAvatarBase64').value = base64String;
+                document.getElementById('avatarPreviewImg').src = base64String;
+            };
+            reader.readAsDataURL(file);
+        }
+
         function saveUserProfile() {
             const pseudo = document.getElementById('userPseudoInput').value.trim() || 'Anonyme';
-            const avatar = document.getElementById('userAvatarInput').value.trim();
+            const avatar = document.getElementById('userAvatarBase64').value.trim();
             localStorage.setItem('checkmate_pseudo', pseudo);
             localStorage.setItem('checkmate_avatar', avatar);
 
@@ -1480,7 +1496,7 @@
                 return;
             }
 
-            let pgnString = '[Event "Checkmate v15.1.0 Partie"]\n';
+            let pgnString = '[Event "Checkmate v15.1.1 Partie"]\n';
             pgnString += '[Site "Checkmate App"]\n';
             pgnString += '[Date "' + new Date().toISOString().slice(0, 10).replace(/-/g, '.') + '"]\n';
             pgnString += '[Round "1"]\n';
